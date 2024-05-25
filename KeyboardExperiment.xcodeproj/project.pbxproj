@@ -15,7 +15,6 @@
 		B2E23DB62C00311F0049EBFD /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B2E23DB52C00311F0049EBFD /* Base */; };
 		B2E23DC42C00312C0049EBFD /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E23DC32C00312C0049EBFD /* KeyboardViewController.swift */; };
 		B2E23DC82C00312C0049EBFD /* Keyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B2E23DC12C00312C0049EBFD /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B2E23DCF2C003DD90049EBFD /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E23DCE2C003DD90049EBFD /* KeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +54,6 @@
 		B2E23DC32C00312C0049EBFD /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		B2E23DC52C00312C0049EBFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2E23DCD2C003AFC0049EBFD /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		B2E23DCE2C003DD90049EBFD /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +108,6 @@
 		B2E23DC22C00312C0049EBFD /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B2E23DCE2C003DD90049EBFD /* KeyboardView.swift */,
 				B2E23DC32C00312C0049EBFD /* KeyboardViewController.swift */,
 				B215DFE02C005DBD004BBB1A /* KeyboardState.swift */,
 				B2E23DC52C00312C0049EBFD /* Info.plist */,
@@ -229,7 +226,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2E23DC42C00312C0049EBFD /* KeyboardViewController.swift in Sources */,
-				B2E23DCF2C003DD90049EBFD /* KeyboardView.swift in Sources */,
 				B215DFE12C005DBD004BBB1A /* KeyboardState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

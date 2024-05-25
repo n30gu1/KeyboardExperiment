@@ -8,51 +8,12 @@
 import Combine
 import SwiftUI
 import UIKit
-
-struct NextKeyboardButtonRepresentable: UIViewRepresentable {
-    @ObservedObject var state: KeyboardState
-    weak var target: KeyboardViewController!
-    let selector: Selector
-    
-    init(state: KeyboardState, target: KeyboardViewController, selector: Selector) {
-        self.state = state
-        self.target = target
-        self.selector = selector
-    }
-    
-    func makeUIView(context: Context) -> UIButton {
-        UIButton(type: .system)
-    }
-    
-    func updateUIView(_ uiView: UIButton, context: Context) {
-        uiView.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
-        uiView.sizeToFit()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        
-        uiView.addTarget(self.target, action: self.selector, for: .allTouchEvents)
-        
-        self.state.$nextKeyboardButtonIsHidden
-            .sink { isHidden in
-                uiView.isHidden = isHidden
-                
-                #if DEBUG
-                print(isHidden)
-                #endif
-            }
-            .store(in: &context.coordinator.cancellables)
-    }
-    
-    class Coordinator {
-        var cancellables: Set<AnyCancellable> = []
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-}
+import os.log
 
 class KeyboardViewController: UIInputViewController {
     var state = KeyboardState()
+    
+    @IBOutlet var nextKeyboardButton: UIButton!
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -62,25 +23,15 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        os_log("viewDidLoad")
         
         // Perform custom UI setup here
-        let nextKeyboardButton = NextKeyboardButtonRepresentable(state: self.state, target: self, selector: #selector(handleInputModeList(from:with:)))
-        
-        let keyboardViewHosting = UIHostingController(rootView: KeyboardView(state: self.state, nextKeyboardButton: nextKeyboardButton))
-        keyboardViewHosting.view.translatesAutoresizingMaskIntoConstraints = false
-        keyboardViewHosting.view.backgroundColor = .clear
-        self.view.addSubview(keyboardViewHosting.view)
-        
-        NSLayoutConstraint.activate([
-            keyboardViewHosting.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            keyboardViewHosting.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            keyboardViewHosting.view.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            keyboardViewHosting.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
+        self.configureNextKeyboardButton()
+        self.configureUI()
     }
     
     override func viewWillLayoutSubviews() {
-        self.state.nextKeyboardButtonIsHidden = !self.needsInputModeSwitchKey
+        self.nextKeyboardButton.isHidden = !self.needsInputModeSwitchKey
         
         super.viewWillLayoutSubviews()
     }
@@ -100,5 +51,42 @@ class KeyboardViewController: UIInputViewController {
 //            textColor = UIColor.black
 //        }
 //        self.nextKeyboardButton.setTitleColor(textColor, for: [])
+    }
+    
+    func configureNextKeyboardButton() {
+        self.nextKeyboardButton = UIButton(type: .system)
+        
+        nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
+        nextKeyboardButton.sizeToFit()
+        nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+    }
+    
+    func configureUI() {
+        let rootStackView = UIStackView()
+        
+        rootStackView.axis = .vertical
+        rootStackView.alignment = .fill
+        rootStackView.distribution = .fill
+        
+        let firstRowStackView = UIStackView()
+        let secondRowStackView = UIStackView()
+        let thirdRowStackView = UIStackView()
+        let fourthRowStackView = UIStackView()
+        
+        rootStackView.addArrangedSubview(firstRowStackView)
+        rootStackView.addArrangedSubview(secondRowStackView)
+        rootStackView.addArrangedSubview(thirdRowStackView)
+        rootStackView.addArrangedSubview(fourthRowStackView)
+        
+        firstRowStackView.axis = .horizontal
+        secondRowStackView.axis = .horizontal
+        thirdRowStackView.axis = .horizontal
+        fourthRowStackView.axis = .horizontal
+        
+        fourthRowStackView.addArrangedSubview(nextKeyboardButton)
+        
+        self.view.addSubview(rootStackView)
     }
 }
