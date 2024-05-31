@@ -26,38 +26,51 @@ class ViewController: UIViewController {
     }
     
     func configureStack() {
-        stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
+        stackView = {
+            let s = UIStackView()
+            
+            s.axis          = .vertical
+            s.alignment     = .fill
+            s.distribution  = .fillEqually
+            
+            return s
+        }()
         
         view.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor),
+//            stackView.topAnchor.constraint(equalTo: view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 300.0)
         ])
     }
     
     func configureUI() {
         let label: UILabel = {
-            let l = UILabel()
-            l.text = "Stack is working quite well"
+            let l   = UILabel()
+            l.text  = "Stack is working quite well"
             return l
         }()
         
         let anotherLabel: UILabel = {
-            let l = UILabel()
-            l.text = "Stack is working quite well"
+            let l   = UILabel()
+            l.text  = "Stack is working quite well"
+            return l
+        }()
+        
+        let yetAnotherLabel: UILabel = {
+            let l   = UILabel()
+            l.text  = "Stack is working quite well"
             return l
         }()
 
         let anotherStack = UIStackView()
         anotherStack.addArrangedSubview(anotherLabel)
-        anotherStack.addArrangedSubview(anotherLabel)
+        anotherStack.addArrangedSubview(yetAnotherLabel)
         
         anotherStack.axis = .horizontal
 

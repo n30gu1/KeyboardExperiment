@@ -6,15 +6,24 @@
 //
 
 import Combine
+import os.log
 import SwiftUI
 import UIKit
-import os.log
+
+private var proxy: UITextDocumentProxy!
 
 class KeyboardViewController: UIInputViewController {
-    var state = KeyboardState()
+                var state = KeyboardState()
     
-    @IBOutlet var nextKeyboardButton: UIButton!
+    @IBOutlet   var nextKeyboardButton: UIButton!
     
+    @IBOutlet   var rootStack:          UIStackView!
+    @IBOutlet   var firstRowStack:      UIStackView!
+    @IBOutlet   var secondRowStack:     UIStackView!
+    @IBOutlet   var thirdRowStack:      UIStackView!
+    @IBOutlet   var fourthRowStack:     UIStackView!
+    @IBOutlet   var fifthRowStack:      UIStackView!
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
@@ -24,6 +33,8 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         os_log("viewDidLoad")
+        
+        proxy = textDocumentProxy as UITextDocumentProxy
         
         // Perform custom UI setup here
         self.configureNextKeyboardButton()
@@ -56,37 +67,72 @@ class KeyboardViewController: UIInputViewController {
     func configureNextKeyboardButton() {
         self.nextKeyboardButton = UIButton(type: .system)
         
-        nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
-        nextKeyboardButton.sizeToFit()
-        nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
+        self.nextKeyboardButton.sizeToFit()
+        self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
         
-        nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+        self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
     }
     
     func configureUI() {
-        let rootStackView = UIStackView()
+        self.rootStack = {
+            let s = UIStackView()
+            
+            s.axis          = .vertical
+            s.alignment     = .fill
+            s.distribution  = .fill
+            
+            return s
+        }()
         
-        rootStackView.axis = .vertical
-        rootStackView.alignment = .fill
-        rootStackView.distribution = .fill
+        self.firstRowStack  = {
+            let s = UIStackView()
+            
+            s.axis = .horizontal
+            
+            return s
+        }()
+        self.secondRowStack = {
+            let s = UIStackView()
+            
+            s.axis = .horizontal
+            
+            return s
+        }()
+        self.thirdRowStack  = {
+            let s = UIStackView()
+            
+            s.axis = .horizontal
+            
+            return s
+        }()
+        self.fourthRowStack = {
+            let s = UIStackView()
+            
+            s.axis = .horizontal
+            
+            return s
+        }()
+        self.fifthRowStack  = {
+            let s = UIStackView()
+            
+            s.axis = .horizontal
+            
+            return s
+        }()
         
-        let firstRowStackView = UIStackView()
-        let secondRowStackView = UIStackView()
-        let thirdRowStackView = UIStackView()
-        let fourthRowStackView = UIStackView()
+        rootStack.addArrangedSubview(firstRowStack)
+        rootStack.addArrangedSubview(secondRowStack)
+        rootStack.addArrangedSubview(thirdRowStack)
+        rootStack.addArrangedSubview(fourthRowStack)
+        rootStack.addArrangedSubview(fifthRowStack)
         
-        rootStackView.addArrangedSubview(firstRowStackView)
-        rootStackView.addArrangedSubview(secondRowStackView)
-        rootStackView.addArrangedSubview(thirdRowStackView)
-        rootStackView.addArrangedSubview(fourthRowStackView)
+        self.fourthRowStack.addArrangedSubview(self.nextKeyboardButton)
         
-        firstRowStackView.axis = .horizontal
-        secondRowStackView.axis = .horizontal
-        thirdRowStackView.axis = .horizontal
-        fourthRowStackView.axis = .horizontal
+        self.view.addSubview(rootStack)
         
-        fourthRowStackView.addArrangedSubview(nextKeyboardButton)
-        
-        self.view.addSubview(rootStackView)
+        NSLayoutConstraint.activate([
+            rootStack.heightAnchor.constraint(equalToConstant: 216.0)
+        ])
     }
 }
