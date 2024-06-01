@@ -17,7 +17,6 @@ class KeyboardViewController: UIInputViewController {
     
     @IBOutlet   var nextKeyboardButton: UIButton!
     
-    @IBOutlet   var rootStack:          UIStackView!
     @IBOutlet   var firstRowStack:      UIStackView!
     @IBOutlet   var secondRowStack:     UIStackView!
     @IBOutlet   var thirdRowStack:      UIStackView!
@@ -75,16 +74,6 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func configureUI() {
-        self.rootStack = {
-            let s = UIStackView()
-            
-            s.axis          = .vertical
-            s.alignment     = .fill
-            s.distribution  = .fill
-            
-            return s
-        }()
-        
         self.firstRowStack  = {
             let s = UIStackView()
             
@@ -121,18 +110,18 @@ class KeyboardViewController: UIInputViewController {
             return s
         }()
         
-        rootStack.addArrangedSubview(firstRowStack)
-        rootStack.addArrangedSubview(secondRowStack)
-        rootStack.addArrangedSubview(thirdRowStack)
-        rootStack.addArrangedSubview(fourthRowStack)
-        rootStack.addArrangedSubview(fifthRowStack)
+//        rootStack.addArrangedSubview(firstRowStack)
+//        rootStack.addArrangedSubview(secondRowStack)
+//        rootStack.addArrangedSubview(thirdRowStack)
+//        rootStack.addArrangedSubview(fourthRowStack)
+//        rootStack.addArrangedSubview(fifthRowStack)
         
         self.fourthRowStack.addArrangedSubview(self.nextKeyboardButton)
         
-        self.view.addSubview(rootStack)
+//        self.view.addSubview(rootStack)
         
-        NSLayoutConstraint.activate([
-            rootStack.heightAnchor.constraint(equalToConstant: 216.0)
-        ])
+//        NSLayoutConstraint.activate([
+//            rootStack.heightAnchor.constraint(equalToConstant: 216.0)
+//        ])
     }
 }
