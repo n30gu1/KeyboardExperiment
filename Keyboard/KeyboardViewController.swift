@@ -27,6 +27,7 @@ class KeyboardViewController: UIInputViewController {
         super.updateViewConstraints()
         
         // Add custom view sizing constraints here
+        self.setupLayout()
     }
     
     override func viewDidLoad() {
@@ -37,7 +38,19 @@ class KeyboardViewController: UIInputViewController {
         
         // Perform custom UI setup here
         self.configureNextKeyboardButton()
-        self.configureUI()
+//        self.configureUI()
+//        self.setupLayout()
+        
+        let testButton = {
+            let b = UIButton(type: .system)
+            b.setTitle("Test", for: [])
+            b.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
+            return b
+        }()
+        
+        self.view.addSubview(testButton)
+        
+        testButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     override func viewWillLayoutSubviews() {
@@ -78,6 +91,7 @@ class KeyboardViewController: UIInputViewController {
             let s = UIStackView()
             
             s.axis = .horizontal
+            s.backgroundColor = .red
             
             return s
         }()
@@ -85,6 +99,7 @@ class KeyboardViewController: UIInputViewController {
             let s = UIStackView()
             
             s.axis = .horizontal
+            s.backgroundColor = .green
             
             return s
         }()
@@ -92,6 +107,7 @@ class KeyboardViewController: UIInputViewController {
             let s = UIStackView()
             
             s.axis = .horizontal
+            s.backgroundColor = .blue
             
             return s
         }()
@@ -99,6 +115,7 @@ class KeyboardViewController: UIInputViewController {
             let s = UIStackView()
             
             s.axis = .horizontal
+            s.backgroundColor = .yellow
             
             return s
         }()
@@ -106,6 +123,7 @@ class KeyboardViewController: UIInputViewController {
             let s = UIStackView()
             
             s.axis = .horizontal
+            s.backgroundColor = .purple
             
             return s
         }()
@@ -116,12 +134,54 @@ class KeyboardViewController: UIInputViewController {
 //        rootStack.addArrangedSubview(fourthRowStack)
 //        rootStack.addArrangedSubview(fifthRowStack)
         
-        self.fourthRowStack.addArrangedSubview(self.nextKeyboardButton)
+//        self.fourthRowStack.addArrangedSubview(self.nextKeyboardButton)
         
-//        self.view.addSubview(rootStack)
+//        self.view.addSubview(self.firstRowStack)
+//        self.view.addSubview(self.secondRowStack)
+//        self.view.addSubview(self.thirdRowStack)
+//        self.view.addSubview(self.fourthRowStack)
+//        self.view.addSubview(self.fifthRowStack)
         
 //        NSLayoutConstraint.activate([
 //            rootStack.heightAnchor.constraint(equalToConstant: 216.0)
+//        ])
+    }
+    
+    @objc func testButtonTapped() {
+        os_log("testButtonTapped")
+        proxy.insertText("ㅂ")
+//        proxy.insertText("ᅡ")
+        print(proxy.selectedText)
+    }
+    
+    func setupLayout() {
+//        NSLayoutConstraint.activate([
+//            self.firstRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            self.firstRowStack.topAnchor.constraint(equalTo: self.view.topAnchor),
+//            self.firstRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            self.firstRowStack.heightAnchor.constraint(equalToConstant: 54.0),
+//            
+//            self.secondRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            self.secondRowStack.topAnchor.constraint(equalTo: self.firstRowStack.bottomAnchor),
+//            self.secondRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            self.secondRowStack.heightAnchor.constraint(equalToConstant: 54.0),
+//            
+//            self.thirdRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            self.thirdRowStack.topAnchor.constraint(equalTo: self.secondRowStack.bottomAnchor),
+//            self.thirdRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            self.thirdRowStack.heightAnchor.constraint(equalToConstant: 54.0),
+//            
+//            self.fourthRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            self.fourthRowStack.topAnchor.constraint(equalTo: self.thirdRowStack.bottomAnchor),
+//            self.fourthRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            self.fourthRowStack.heightAnchor.constraint(equalToConstant: 54.0),
+////            self.fourthRowStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+//            
+//            self.fifthRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            self.fifthRowStack.topAnchor.constraint(equalTo: self.fourthRowStack.bottomAnchor),
+//            self.fifthRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            self.fifthRowStack.heightAnchor.constraint(equalToConstant: 54.0),
+//            self.fifthRowStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 //        ])
     }
 }
