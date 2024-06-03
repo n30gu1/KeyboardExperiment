@@ -22,6 +22,8 @@ struct KeyboardKey: View {
     
     @State private var composedCharacter = ""
     
+    @ObservedObject var automata = Automata()
+    
     var body: some View {
         Text(isPressed ? "" : character)
             .frame(width: 50, height: 40)
@@ -126,6 +128,7 @@ struct KeyboardKey: View {
                     let unicode = UnicodeScalar(composedCode)
                     composedCharacter = "\(unicode!)"
                 } else {
+                    
                 }
                 
                 previousDirection = $0
