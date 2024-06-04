@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B215DFE12C005DBD004BBB1A /* KeyboardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215DFE02C005DBD004BBB1A /* KeyboardState.swift */; };
+		B238600A2C0EDC3A00F84480 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEA82C0C5D7B006EF51C /* KeyboardKey.swift */; };
+		B238600B2C0EDC3D00F84480 /* Automata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285A5F52C0CC0D400817E90 /* Automata.swift */; };
+		B238600C2C0EDC4500F84480 /* KeyboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEAA2C0C6286006EF51C /* KeyboardOverlay.swift */; };
 		B285A5F62C0CC0D400817E90 /* Automata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285A5F52C0CC0D400817E90 /* Automata.swift */; };
 		B2E23DAA2C00311E0049EBFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E23DA92C00311E0049EBFD /* AppDelegate.swift */; };
 		B2E23DAC2C00311E0049EBFD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E23DAB2C00311E0049EBFD /* SceneDelegate.swift */; };
@@ -245,7 +248,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2E23DC42C00312C0049EBFD /* KeyboardViewController.swift in Sources */,
+				B238600C2C0EDC4500F84480 /* KeyboardOverlay.swift in Sources */,
 				B2E8AEA72C0C5C79006EF51C /* KeyboardConstants.swift in Sources */,
+				B238600B2C0EDC3D00F84480 /* Automata.swift in Sources */,
+				B238600A2C0EDC3A00F84480 /* KeyboardKey.swift in Sources */,
 				B215DFE12C005DBD004BBB1A /* KeyboardState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

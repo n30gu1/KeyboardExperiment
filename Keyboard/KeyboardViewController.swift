@@ -13,7 +13,7 @@ import UIKit
 private var proxy: UITextDocumentProxy!
 
 class KeyboardViewController: UIInputViewController {
-                var state = KeyboardState()
+                var automata: Automata!
     
     @IBOutlet   var nextKeyboardButton: UIButton!
     
@@ -36,21 +36,18 @@ class KeyboardViewController: UIInputViewController {
         
         proxy = textDocumentProxy as UITextDocumentProxy
         
+        automata = Automata(proxy: proxy)
+        
         // Perform custom UI setup here
         self.configureNextKeyboardButton()
 //        self.configureUI()
 //        self.setupLayout()
         
-        let testButton = {
-            let b = UIButton(type: .system)
-            b.setTitle("Test", for: [])
-            b.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
-            return b
-        }()
+        let testButton = UIHostingController(rootView: KeyboardKey(automata: automata))
         
-        self.view.addSubview(testButton)
+        self.view.addSubview(testButton.view)
         
-        testButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        testButton.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     override func viewWillLayoutSubviews() {
@@ -149,8 +146,9 @@ class KeyboardViewController: UIInputViewController {
     
     @objc func testButtonTapped() {
         os_log("testButtonTapped")
-        proxy.insertText("ㅂ")
 //        proxy.insertText("ᅡ")
+        proxy.deleteBackward()
+        proxy.insertText("ㅂ")
         print(proxy.selectedText)
     }
     
@@ -160,23 +158,23 @@ class KeyboardViewController: UIInputViewController {
 //            self.firstRowStack.topAnchor.constraint(equalTo: self.view.topAnchor),
 //            self.firstRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            self.firstRowStack.heightAnchor.constraint(equalToConstant: 54.0),
-//            
+//
 //            self.secondRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 //            self.secondRowStack.topAnchor.constraint(equalTo: self.firstRowStack.bottomAnchor),
 //            self.secondRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            self.secondRowStack.heightAnchor.constraint(equalToConstant: 54.0),
-//            
+//
 //            self.thirdRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 //            self.thirdRowStack.topAnchor.constraint(equalTo: self.secondRowStack.bottomAnchor),
 //            self.thirdRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            self.thirdRowStack.heightAnchor.constraint(equalToConstant: 54.0),
-//            
+//
 //            self.fourthRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 //            self.fourthRowStack.topAnchor.constraint(equalTo: self.thirdRowStack.bottomAnchor),
 //            self.fourthRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            self.fourthRowStack.heightAnchor.constraint(equalToConstant: 54.0),
 ////            self.fourthRowStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-//            
+//
 //            self.fifthRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 //            self.fifthRowStack.topAnchor.constraint(equalTo: self.fourthRowStack.bottomAnchor),
 //            self.fifthRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),

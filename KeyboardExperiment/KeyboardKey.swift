@@ -21,8 +21,9 @@ struct KeyboardKey: View {
     @State private var directions: [Direction] = []
     
     @State private var composedCharacter = ""
+    @State private var currentJungsung: Int? = nil
     
-    @ObservedObject var automata = Automata()
+    @ObservedObject var automata: Automata
     
     var body: some View {
         Text(isPressed ? "" : character)
@@ -58,9 +59,12 @@ struct KeyboardKey: View {
                     .onEnded { _ in
                         isPressed = false
                         currentDirection = .none
-                        print(directions)
+                        
+                        automata.input(consonent: character, syllable: currentJungsung)
                         
                         directions = []
+                        composedCharacter = "ㅁ"
+                        currentJungsung = nil
                     }
             )
             .onChange(of: currentDirection) {
@@ -70,65 +74,17 @@ struct KeyboardKey: View {
                     directions.append($0)
                 }
                 
-                var jungCode: Int? = nil
+                let jungCode: Int? = jungsungCodeByDirection()
                 
-                switch directions {
-                case [.up]:
-                    jungCode = 8
-                case [.up, .none]:
-                    jungCode = 11
-                case [.up, .none, .up]:
-                    jungCode = 12
-                case [.up, .upRight]:
-                    jungCode = 9
-                case [.up, .upRight, .up], [.up, .upRight, .none]:
-                    jungCode = 10
-                case [.right]:
-                    jungCode = 0
-                case [.right, .none]:
-                    jungCode = 1
-                case [.right, .none, .right]:
-                    jungCode = 2
-                case [.right, .none, .right, .none]:
-                    jungCode = 3
-                case [.left]:
-                    jungCode = 4
-                case [.left, .none]:
-                    jungCode = 5
-                case [.left, .none, .left]:
-                    jungCode = 6
-                case [.left, .none, .left, .none]:
-                    jungCode = 7
-                case [.down]:
-                    jungCode = 13
-                case [.down, .none]:
-                    jungCode = 14
-                case [.down, .none, .down]:
-                    jungCode = 15
-                case [.down, .downLeft]:
-                    jungCode = 16
-                case [.down, .downLeft, .down], [.down, .downLeft, .none]:
-                    jungCode = 17
-                case [.upRight], [.upLeft]:
-                    jungCode = 18
-                case [.downRight], [.downLeft]:
-                    jungCode = 19
-                case [.downRight, .none], [.downLeft, .none]:
-                    jungCode = 20
-                case []:
-                    composedCharacter = "ㅁ"
-                default:
-//                    composedCharacter = character
-                    break
-                }
-                
-                
-                if let jungCode = jungCode {
-                    let composedCode = 0xAC00 + (6 * 588) + (jungCode * 28)
-                    let unicode = UnicodeScalar(composedCode)
-                    composedCharacter = "\(unicode!)"
+                if let jungCode {
+                    if jungCode != 100 {
+                        let composedCode = 0xAC00 + (6 * 588) + (jungCode * 28)
+                        let unicode = UnicodeScalar(composedCode)
+                        composedCharacter = "\(unicode!)"
+                        currentJungsung = jungsungCodeByDirection()
+                    }
                 } else {
-                    
+//                    composedCharacter = "ㅁ"
                 }
                 
                 previousDirection = $0
@@ -145,6 +101,108 @@ struct KeyboardKey: View {
             .task {
                 composedCharacter = character
             }
+    }
+    
+    func jungsungCodeByDirection() -> Int? {
+        switch directions {
+        case [.up]:
+            return 8
+        case [.up, .none]:
+            return 11
+        case [.up, .none, .up]:
+            return 12
+        case [.up, .upRight]:
+            return 9
+        case [.up, .upRight, .up], [.up, .upRight, .none]:
+            return 10
+        case [.right]:
+            return 0
+        case [.right, .none]:
+            return 1
+        case [.right, .none, .right]:
+            return 2
+        case [.right, .none, .right, .none]:
+            return 3
+        case [.left]:
+            return 4
+        case [.left, .none]:
+            return 5
+        case [.left, .none, .left]:
+            return 6
+        case [.left, .none, .left, .none]:
+            return 7
+        case [.down]:
+            return 13
+        case [.down, .none]:
+            return 16
+        case [.down, .none, .down]:
+            return 17
+        case [.down, .downLeft]:
+            return 14
+        case [.down, .downLeft, .down], [.down, .downLeft, .none]:
+            return 15
+        case [.upRight], [.upLeft]:
+            return 20
+        case [.downRight], [.downLeft]:
+            return 18
+        case [.downRight, .none], [.downLeft, .none]:
+            return 19
+        case []:
+            return nil
+        default:
+            return 100 // ignore
+        }
+    }
+    
+    func jungsungSparseByDirection() -> String? {
+        switch directions {
+        case [.up]:
+            return "ㅗ"
+        case [.up, .none]:
+            return "ㅚ"
+        case [.up, .none, .up]:
+            return "ㅛ"
+        case [.up, .upRight]:
+            return "ㅘ"
+        case [.up, .upRight, .up], [.up, .upRight, .none]:
+            return "ㅙ"
+        case [.right]:
+            return "ㅏ"
+        case [.right, .none]:
+            return "ㅐ"
+        case [.right, .none, .right]:
+            return "ㅑ"
+        case [.right, .none, .right, .none]:
+            return "ㅒ"
+        case [.left]:
+            return "ㅓ"
+        case [.left, .none]:
+            return "ㅔ"
+        case [.left, .none, .left]:
+            return "ㅕ"
+        case [.left, .none, .left, .none]:
+            return "ㅖ"
+        case [.down]:
+            return "ㅜ"
+        case [.down, .none]:
+            return "ㅟ"
+        case [.down, .none, .down]:
+            return "ㅠ"
+        case [.down, .downLeft]:
+            return "ㅝ"
+        case [.down, .downLeft, .down], [.down, .downLeft, .none]:
+            return "ㅞ"
+        case [.upRight], [.upLeft]:
+            return "ㅣ"
+        case [.downRight], [.downLeft]:
+            return "ㅡ"
+        case [.downRight, .none], [.downLeft, .none]:
+            return "ㅤ\u{3162}"
+        case []:
+            return nil
+        default:
+            return nil
+        }
     }
     
     func pressedView() -> some View {
@@ -171,6 +229,6 @@ struct KeyboardKey: View {
     }
 }
 
-#Preview {
-    KeyboardKey()
-}
+//#Preview {
+//    KeyboardKey()
+//}
