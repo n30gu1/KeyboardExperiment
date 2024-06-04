@@ -12,11 +12,10 @@ enum Direction {
 }
 
 struct KeyboardKey: View {
-    let character = "ㅁ"
+    let character: String
     @State private var isPressed = false
     
     @State private var currentDirection: Direction = .none
-    @State private var previousDirection: Direction = .none
     
     @State private var directions: [Direction] = []
     
@@ -28,7 +27,7 @@ struct KeyboardKey: View {
     var body: some View {
         Text(isPressed ? "" : character)
             .frame(width: 50, height: 40)
-            .background(Color.white)
+            .background(Color.white) // TODO: Change color to system
             .cornerRadius(6)
             .shadow(radius: 0.4, x: 0, y: 1)
             .gesture(
@@ -63,7 +62,7 @@ struct KeyboardKey: View {
                         automata.input(consonent: character, syllable: currentJungsung)
                         
                         directions = []
-                        composedCharacter = "ㅁ"
+                        composedCharacter = character
                         currentJungsung = nil
                     }
             )
@@ -83,11 +82,7 @@ struct KeyboardKey: View {
                         composedCharacter = "\(unicode!)"
                         currentJungsung = jungsungCodeByDirection()
                     }
-                } else {
-//                    composedCharacter = "ㅁ"
                 }
-                
-                previousDirection = $0
             }
             .background {
                 if isPressed {
@@ -97,7 +92,6 @@ struct KeyboardKey: View {
             }
         
             .padding()
-            .background(Color(uiColor: #colorLiteral(red: 210/255, green: 212/255, blue: 217/255, alpha: 1)))
             .task {
                 composedCharacter = character
             }
@@ -154,57 +148,6 @@ struct KeyboardKey: View {
         }
     }
     
-    func jungsungSparseByDirection() -> String? {
-        switch directions {
-        case [.up]:
-            return "ㅗ"
-        case [.up, .none]:
-            return "ㅚ"
-        case [.up, .none, .up]:
-            return "ㅛ"
-        case [.up, .upRight]:
-            return "ㅘ"
-        case [.up, .upRight, .up], [.up, .upRight, .none]:
-            return "ㅙ"
-        case [.right]:
-            return "ㅏ"
-        case [.right, .none]:
-            return "ㅐ"
-        case [.right, .none, .right]:
-            return "ㅑ"
-        case [.right, .none, .right, .none]:
-            return "ㅒ"
-        case [.left]:
-            return "ㅓ"
-        case [.left, .none]:
-            return "ㅔ"
-        case [.left, .none, .left]:
-            return "ㅕ"
-        case [.left, .none, .left, .none]:
-            return "ㅖ"
-        case [.down]:
-            return "ㅜ"
-        case [.down, .none]:
-            return "ㅟ"
-        case [.down, .none, .down]:
-            return "ㅠ"
-        case [.down, .downLeft]:
-            return "ㅝ"
-        case [.down, .downLeft, .down], [.down, .downLeft, .none]:
-            return "ㅞ"
-        case [.upRight], [.upLeft]:
-            return "ㅣ"
-        case [.downRight], [.downLeft]:
-            return "ㅡ"
-        case [.downRight, .none], [.downLeft, .none]:
-            return "ㅤ\u{3162}"
-        case []:
-            return nil
-        default:
-            return nil
-        }
-    }
-    
     func pressedView() -> some View {
         Path { path in
             path.move(to: CGPoint(x: 0, y: 10))
@@ -229,6 +172,6 @@ struct KeyboardKey: View {
     }
 }
 
-//#Preview {
+// #Preview {
 //    KeyboardKey()
-//}
+// }

@@ -29,9 +29,9 @@ class ViewController: UIViewController {
         stackView = {
             let s = UIStackView()
             
-            s.axis          = .vertical
-            s.alignment     = .fill
-            s.distribution  = .fillEqually
+            s.axis = .vertical
+            s.alignment = .fill
+            s.distribution = .fillEqually
             
             return s
         }()
@@ -51,20 +51,20 @@ class ViewController: UIViewController {
     
     func configureUI() {
         let label: UILabel = {
-            let l   = UILabel()
-            l.text  = "Stack is working quite well"
+            let l = UILabel()
+            l.text = "Stack is working quite well"
             return l
         }()
         
         let anotherLabel: UILabel = {
-            let l   = UILabel()
-            l.text  = "Stack is working quite well"
+            let l = UILabel()
+            l.text = "Stack is working quite well"
             return l
         }()
         
         let yetAnotherLabel: UILabel = {
-            let l   = UILabel()
-            l.text  = "Stack is working quite well"
+            let l = UILabel()
+            l.text = "Stack is working quite well"
             return l
         }()
 

@@ -19,13 +19,11 @@ final class Automata: ObservableObject {
 //    private(set) var composingPreview = ""
     
     var isJongFull: Bool {
-        get {
-            switch sparse {
-                case ["ㄱ"], ["ㄱ", "ㅅ"], ["ㄴ"], ["ㄴ", "ㅈ"], ["ㄴ", "ㅎ"], ["ㄷ"], ["ㄸ"], ["ㄹ"], ["ㄹ", "ㄱ"], ["ㄹ", "ㅁ"], ["ㄹ", "ㅂ"], ["ㄹ", "ㅅ"], ["ㄹ", "ㅌ"], ["ㄹ", "ㅍ"], ["ㄹ", "ㅎ"], ["ㅁ"], ["ㅂ"], ["ㅂ", "ㅅ"], ["ㅃ"], ["ㅅ"], ["ㅆ"], ["ㅇ"], ["ㅈ"], ["ㅉ"], ["ㅊ"], ["ㅋ"], ["ㅌ"], ["ㅍ"], ["ㅎ"]:
+        switch sparse {
+            case ["ㄱ"], ["ㄱ", "ㅅ"], ["ㄴ"], ["ㄴ", "ㅈ"], ["ㄴ", "ㅎ"], ["ㄷ"], ["ㄸ"], ["ㄹ"], ["ㄹ", "ㄱ"], ["ㄹ", "ㅁ"], ["ㄹ", "ㅂ"], ["ㄹ", "ㅅ"], ["ㄹ", "ㅌ"], ["ㄹ", "ㅍ"], ["ㄹ", "ㅎ"], ["ㅁ"], ["ㅂ"], ["ㅂ", "ㅅ"], ["ㅃ"], ["ㅅ"], ["ㅆ"], ["ㅇ"], ["ㅈ"], ["ㅉ"], ["ㅊ"], ["ㅋ"], ["ㅌ"], ["ㅍ"], ["ㅎ"]:
                 return true
             default:
                 return false
-            }
         }
     }
     
@@ -64,33 +62,33 @@ final class Automata: ObservableObject {
     
     func generateUnicodeWithBaseCode() -> Int {
         let jong = switch sparse {
-        case ["ㄱ", "ㅅ"]:
-            3
-        case ["ㄴ", "ㅈ"]:
-            5
-        case ["ㄴ", "ㅎ"]:
-            6
-        case ["ㄹ", "ㄱ"]:
-            9
-        case ["ㄹ", "ㅁ"]:
-            10
-        case ["ㄹ", "ㅂ"]:
-            11
-        case ["ㄹ", "ㅅ"]:
-            12
-        case ["ㄹ", "ㅌ"]:
-            13
-        case ["ㄹ", "ㅍ"]:
-            14
-        case ["ㄹ", "ㅎ"]:
-            15
-        case ["ㅂ", "ㅅ"]:
-            18
-        default:
-            jongsungTable[sparse.first!]!
+            case ["ㄱ", "ㅅ"]:
+                3
+            case ["ㄴ", "ㅈ"]:
+                5
+            case ["ㄴ", "ㅎ"]:
+                6
+            case ["ㄹ", "ㄱ"]:
+                9
+            case ["ㄹ", "ㅁ"]:
+                10
+            case ["ㄹ", "ㅂ"]:
+                11
+            case ["ㄹ", "ㅅ"]:
+                12
+            case ["ㄹ", "ㅌ"]:
+                13
+            case ["ㄹ", "ㅍ"]:
+                14
+            case ["ㄹ", "ㅎ"]:
+                15
+            case ["ㅂ", "ㅅ"]:
+                18
+            default:
+                jongsungTable[sparse.first!]!
         }
         
-        return (self.baseCode ?? 0xAC00) + jong
+        return (baseCode ?? 0xAC00) + jong
     }
     
     func endComposing() {

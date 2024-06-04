@@ -13,15 +13,15 @@ import UIKit
 private var proxy: UITextDocumentProxy!
 
 class KeyboardViewController: UIInputViewController {
-                var automata: Automata!
+    var automata: Automata!
     
-    @IBOutlet   var nextKeyboardButton: UIButton!
+    @IBOutlet var nextKeyboardButton: UIButton!
     
-    @IBOutlet   var firstRowStack:      UIStackView!
-    @IBOutlet   var secondRowStack:     UIStackView!
-    @IBOutlet   var thirdRowStack:      UIStackView!
-    @IBOutlet   var fourthRowStack:     UIStackView!
-    @IBOutlet   var fifthRowStack:      UIStackView!
+    @IBOutlet var firstRowStack: UIStackView!
+    @IBOutlet var secondRowStack: UIStackView!
+    @IBOutlet var thirdRowStack: UIStackView!
+    @IBOutlet var fourthRowStack: UIStackView!
+    @IBOutlet var fifthRowStack: UIStackView!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -36,18 +36,41 @@ class KeyboardViewController: UIInputViewController {
         
         proxy = textDocumentProxy as UITextDocumentProxy
         
-        automata = Automata(proxy: proxy)
+        self.automata = Automata(proxy: proxy)
         
         // Perform custom UI setup here
         self.configureNextKeyboardButton()
 //        self.configureUI()
 //        self.setupLayout()
         
-        let testButton = UIHostingController(rootView: KeyboardKey(automata: automata))
+        let testButton = UIHostingController(rootView: KeyboardKey(character: "ㅁ", automata: automata))
+        let testButton2 = UIHostingController(rootView: KeyboardKey(character: "ㅇ", automata: automata))
         
         self.view.addSubview(testButton.view)
+        self.view.addSubview(testButton2.view)
         
-        testButton.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.backgroundColor = .clear
+        
+        testButton.view.backgroundColor = .clear
+        
+        testButton.view.translatesAutoresizingMaskIntoConstraints = false
+        testButton2.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            testButton.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            testButton.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            testButton.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            testButton.view.bottomAnchor.constraint(equalTo: testButton2.view.topAnchor),
+            
+            testButton2.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            testButton2.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            testButton2.view.topAnchor.constraint(equalTo: testButton.view.bottomAnchor),
+            testButton2.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            self.view.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        print(testButton.view.frame.width)
     }
     
     override func viewWillLayoutSubviews() {
@@ -84,7 +107,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func configureUI() {
-        self.firstRowStack  = {
+        self.firstRowStack = {
             let s = UIStackView()
             
             s.axis = .horizontal
@@ -100,7 +123,7 @@ class KeyboardViewController: UIInputViewController {
             
             return s
         }()
-        self.thirdRowStack  = {
+        self.thirdRowStack = {
             let s = UIStackView()
             
             s.axis = .horizontal
@@ -116,7 +139,7 @@ class KeyboardViewController: UIInputViewController {
             
             return s
         }()
-        self.fifthRowStack  = {
+        self.fifthRowStack = {
             let s = UIStackView()
             
             s.axis = .horizontal
@@ -149,7 +172,6 @@ class KeyboardViewController: UIInputViewController {
 //        proxy.insertText("ᅡ")
         proxy.deleteBackward()
         proxy.insertText("ㅂ")
-        print(proxy.selectedText)
     }
     
     func setupLayout() {
@@ -173,7 +195,7 @@ class KeyboardViewController: UIInputViewController {
 //            self.fourthRowStack.topAnchor.constraint(equalTo: self.thirdRowStack.bottomAnchor),
 //            self.fourthRowStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            self.fourthRowStack.heightAnchor.constraint(equalToConstant: 54.0),
-////            self.fourthRowStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ////            self.fourthRowStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 //
 //            self.fifthRowStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 //            self.fifthRowStack.topAnchor.constraint(equalTo: self.fourthRowStack.bottomAnchor),

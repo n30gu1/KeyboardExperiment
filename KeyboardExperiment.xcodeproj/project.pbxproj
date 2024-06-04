@@ -22,7 +22,6 @@
 		B2E8AEA72C0C5C79006EF51C /* KeyboardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEA62C0C5C79006EF51C /* KeyboardConstants.swift */; };
 		B2E8AEA92C0C5D7B006EF51C /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEA82C0C5D7B006EF51C /* KeyboardKey.swift */; };
 		B2E8AEAB2C0C6286006EF51C /* KeyboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEAA2C0C6286006EF51C /* KeyboardOverlay.swift */; };
-		B2E8AEAE2C0C8B36006EF51C /* KeyGestureLookupTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E8AEAD2C0C8B36006EF51C /* KeyGestureLookupTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +65,6 @@
 		B2E8AEA62C0C5C79006EF51C /* KeyboardConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConstants.swift; sourceTree = "<group>"; };
 		B2E8AEA82C0C5D7B006EF51C /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
 		B2E8AEAA2C0C6286006EF51C /* KeyboardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardOverlay.swift; sourceTree = "<group>"; };
-		B2E8AEAD2C0C8B36006EF51C /* KeyGestureLookupTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGestureLookupTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +114,6 @@
 				B2E23DB72C00311F0049EBFD /* Info.plist */,
 				B2E8AEA82C0C5D7B006EF51C /* KeyboardKey.swift */,
 				B285A5F52C0CC0D400817E90 /* Automata.swift */,
-				B2E8AEAD2C0C8B36006EF51C /* KeyGestureLookupTable.swift */,
 				B2E8AEAA2C0C6286006EF51C /* KeyboardOverlay.swift */,
 			);
 			path = KeyboardExperiment;
@@ -235,7 +232,6 @@
 			files = (
 				B2E23DAE2C00311E0049EBFD /* ViewController.swift in Sources */,
 				B2E8AEAB2C0C6286006EF51C /* KeyboardOverlay.swift in Sources */,
-				B2E8AEAE2C0C8B36006EF51C /* KeyGestureLookupTable.swift in Sources */,
 				B2E23DAA2C00311E0049EBFD /* AppDelegate.swift in Sources */,
 				B285A5F62C0CC0D400817E90 /* Automata.swift in Sources */,
 				B2E8AEA92C0C5D7B006EF51C /* KeyboardKey.swift in Sources */,
@@ -408,6 +404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KeyboardExperiment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -437,6 +434,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KeyboardExperiment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -463,6 +461,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Keyboard;
@@ -488,6 +487,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Keyboard;
